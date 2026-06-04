@@ -14,7 +14,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-
+from django.http import HttpResponse
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt.views import (
@@ -25,7 +25,12 @@ from rest_framework_simplejwt.views import (
 from django.conf import settings
 from django.conf.urls.static import static
 
+
+def home(request):
+    return HttpResponse("UAE Property API is running successfully!")
+
 urlpatterns = [
+    path('', home),
     path('admin/', admin.site.urls),
 
     # JWT URLs
