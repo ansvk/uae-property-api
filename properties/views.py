@@ -19,11 +19,29 @@ from django.core.paginator import Paginator
 def property_list(request):
 
     # Query parameters
+    title = request.GET.get('title')
     location = request.GET.get('location')
     min_price = request.GET.get('min_price')
     max_price = request.GET.get('max_price')
+    sort = request.GET.get('sort')
 
     properties = Property.objects.all()
+
+    
+
+    if sort == 'low':
+        properties = properties.order_by('price')
+
+    elif sort == 'high':
+        properties = properties.order_by('-price')
+
+
+
+
+    if title:
+        properties=properties.filter(
+            title__icontains=title
+        )
 
     # Search by location
     if location:
