@@ -27,7 +27,7 @@ from django.conf.urls.static import static
 
 
 def home(request):
-    return HttpResponse("UAE Property API is running successfully! changed")
+    return HttpResponse("UAE Property API is running successfully! changedokok")
 
 urlpatterns = [
     path('', home),
