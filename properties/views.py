@@ -109,16 +109,29 @@ def my_properties(request):
 
     properties = Property.objects.filter(
         owner=request.user
+    ).order_by('-id')
+
+    # Pagination
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(
+        properties,
+        5
     )
 
+    properties_page = paginator.get_page(page)
+
     serializer = PropertySerializer(
-        properties,
+        properties_page,
         many=True
     )
 
-    return Response(serializer.data)
-
-
+    return Response({
+        "count": paginator.count,
+        "total_pages": paginator.num_pages,
+        "current_page": int(page),
+        "results": serializer.data
+    })
 
 
 
@@ -142,7 +155,7 @@ def single_property(request, id):
 
 
 
-@api_view(['PUT'])
+@api_view(['PUT', 'PATCH'])
 @permission_classes([IsAuthenticated])
 def update_property(request, id):
 
