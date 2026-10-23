@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'drf_spectacular',
+
     'accounts',
     'properties',
  
@@ -50,6 +52,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 MIDDLEWARE = [
@@ -143,5 +146,14 @@ STATICFILES_STORAGE = (
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'UAE Real Estate API',
+    'DESCRIPTION': 'API documentation for the UAE Real Estate platform.',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
+
 
 ##hey
